@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Weather App</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="favicon/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="favicon/favicon.svg" />
+  <link rel="shortcut icon" href="favicon/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png" />
+  <link rel="manifest" href="favicon/site.webmanifest" />
+</head>
+<body>
+  <div class="container">
+    <section class="video-section">
+      <video autoplay muted loop class="weather-video" poster="">
+      </video>
+      <div class="overlay"></div>
+      <div class="text-overlay">
+        <div class="flex-container">
+          <h1 id="day"></h1>
+          <h5 id="date"></h5>
+          <div class="forecast-container">
+          <h4 id="location"><i class="fas fa-map-marker-alt"></i></h4>
+          <div class="forecast-timing-container">
+              <span id="forecast-timing" class="forecast-timing">Live Forecast :  <span class="live">•</span> <span class="live-time">00:00</span></span>
+          </div>
+        </div>
+        </div>
+        <div class="flex-container">
+          <div class="weather-data">
+            <div><img src="" alt="weather" id="weather-icon"></div>
+            <div>
+              <h1 id="temperature"></h1>
+              <h5 id="weather-condition"></h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section">
+      <div class="other-weather-details">
+        <div><h5 class="metric">PRECIPITATION</h5></div>
+        <div><h5 class="value">0%</h5></div>
+        <div><h5 class="metric">HUMIDITY</h5></div>
+        <div><h5 class="value">0%</h5></div>
+        <div><h5 class="metric">WIND</h5></div>
+        <div><h5 class="value">0 km/h</h5></div>
+      </div>
+
+      <div class="weekly-weather">
+        <div id="day-1" class="day-weather-container active" role="button"
+          data-precip="12%" data-humidity="68%" data-wind="10 km/h" data-video="./vids/cloudy.mp4" data-condition="" data-poster="">
+          <img src="./icons/overcast-clouds-white.png" class="weather-icon-sm">
+          <img src="./icons/overcast-clouds-black.png" class="weather-icon2-sm disabled-icon">
+          <h6 class="value-lg"></h6>
+          <h5 class="temp">29<sup>°</sup>C</h5>
+        </div>
+        <div id="day-2" class="day-weather-container" role="button"
+          data-precip="5%" data-humidity="45%" data-wind="8 km/h" data-video="./vids/sunny.mp4" data-condition="" data-poster="">
+          <img src="./icons/few-clouds-white.png" class="weather-icon-sm">
+          <img src="./icons/few-clouds-black.png" class="weather-icon2-sm disabled-icon">
+          <h6 class="value-lg"></h6>
+          <h5 class="temp">21<sup>°</sup>C</h5>
+        </div>
+        <div id="day-3" class="day-weather-container" role="button"
+          data-precip="80%" data-humidity="90%" data-wind="20 km/h" data-video="./vids/rainy.mp4" data-condition="" data-poster="">
+          <img src="./icons/rain-white.png" class="weather-icon-sm">
+          <img src="./icons/rain-black.png" class="weather-icon2-sm disabled-icon">
+          <h6 class="value-lg"></h6>
+          <h5 class="temp">08<sup>°</sup>C</h5>
+        </div>
+        <div id="day-4" class="day-weather-container" role="button"
+          data-precip="0%" data-humidity="30%" data-wind="5 km/h" data-video="./vids/sunny.mp4" data-condition="" data-poster="">
+          <img src="./icons/clear-sky-white.png" class="weather-icon-sm">
+          <img src="./icons/clear-sky-black.png" class="weather-icon2-sm disabled-icon">
+          <h6 class="value-lg"></h6>
+          <h5 class="temp">19<sup>°</sup>C</h5>
+        </div>
+        <div id="day-5" class="day-weather-container" role="button"
+          data-precip="55%" data-humidity="75%" data-wind="18 km/h" data-video="./vids/cloudy.mp4" data-condition="" data-poster="">
+          <img src="./icons/snow-white.png" class="weather-icon-sm">
+          <img src="./icons/snow-black.png" class="weather-icon2-sm disabled-icon">
+          <h6 class="value-lg"></h6>
+          <h5 class="temp">30<sup>°</sup>C</h5>
+        </div>
+      </div>
+
+      <button id="locn-change-btn"><h5><i class="fas fa-map-marker-alt"></i> Change location</h5></button>
+      <div class="search-by-locn"></div>
+    </section>
+  </div>
+  <script src="main.js"></script>
+</body>
+</html>
