@@ -1,6 +1,6 @@
 {
   "name": "MyWeatherApp",
-  "short_name": "MyApp",
+  "short_name": "Weather",
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",
