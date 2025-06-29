@@ -294,7 +294,7 @@ window.addEventListener('DOMContentLoaded', () => {
       renderData(firstBoxData, location);
       dayBoxes[0].click();
     } catch (e) {
-      alert("City not found or API issue.");
+      alert("City not found! Please check your input.");
       console.error(e);
     }
   }
