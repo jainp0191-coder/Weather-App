@@ -384,6 +384,6 @@ window.addEventListener('DOMContentLoaded', () => {
   if (savedCity) {
     doSearch(savedCity);
   } else {
-    doSearch("Raigarh");
+    doSearch("raigarh");
   }
 });
