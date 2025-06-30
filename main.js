@@ -193,14 +193,12 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 
  function getConsistentDailyForecast(list, timezoneOffsetInSeconds) {
-  // 1) Compute “now” in the city’s local clock
   const nowUtcMs = Date.now();
   const nowCityMs = nowUtcMs + timezoneOffsetInSeconds * 1000;
   const nowCity = new Date(nowCityMs);
   const cityHour = nowCity.getUTCHours();
   const cityMin  = nowCity.getUTCMinutes();
 
-  // 2) Find the very next slot (smallest positive time difference mod 24h)
   let bestDiff = Infinity;
   let firstDayForecast = null;
   let referenceHour = null;
@@ -208,17 +206,14 @@ window.addEventListener('DOMContentLoaded', () => {
   let referenceDate = null;
 
   for (const item of list) {
-    // Parse the forecast’s UTC ms, then shift into city time
     const itemUtcMs  = Date.parse(item.dt_txt + 'Z');
     const itemCityMs = itemUtcMs + timezoneOffsetInSeconds * 1000;
     const itemCity   = new Date(itemCityMs);
 
-    // Compute difference in minutes, mod 24h
     const diffMins = ((itemCity.getUTCHours() - cityHour) * 60 + 
                       (itemCity.getUTCMinutes() - cityMin) + 
                       24 * 60) % (24 * 60);
 
-    // We want the smallest positive diff
     if (diffMins > 0 && diffMins < bestDiff) {
       bestDiff = diffMins;
       firstDayForecast = item;
@@ -228,20 +223,17 @@ window.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // 3) If we still didn’t find any (very unlikely unless list empty):
   if (!firstDayForecast) {
     console.warn("No future slot found.");
     return { forecasts: [], referenceHour: null, referenceMinutes: null };
   }
 
-  // 4) Group by date
   const groupedByDate = list.reduce((acc, item) => {
     const dateKey = item.dt_txt.split(' ')[0];
     (acc[dateKey] = acc[dateKey] || []).push(item);
     return acc;
   }, {});
 
-  // 5) Build the 5-day array, each day matching HH:MM
   const dates = Object.keys(groupedByDate).sort();
   const dailyForecasts = [];
 
@@ -249,12 +241,10 @@ window.addEventListener('DOMContentLoaded', () => {
     if (dailyForecasts.length >= 5) break;
 
     if (dailyForecasts.length === 0) {
-      // First slot is the one we picked above
       dailyForecasts.push(firstDayForecast);
       continue;
     }
 
-    // Find for this date the slot matching referenceHour & referenceMinutes
     const slot = groupedByDate[dateKey].find(item => {
       const ms    = Date.parse(item.dt_txt + 'Z') + timezoneOffsetInSeconds * 1000;
       const cityT = new Date(ms);
@@ -277,8 +267,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
   async function doSearch(city) {
     try {
-      localStorage.setItem('lastCity', city);
       const data = await fetchWeatherData(city);
+      localStorage.setItem('lastCity', city);
       const result = getConsistentDailyForecast(data.list, data.city.timezone);
       const forecast = result.forecasts;
       const referenceHour = result.referenceHour;
